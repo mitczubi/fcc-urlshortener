@@ -37,7 +37,9 @@ app.post('/api/shorturl', async function(req, res) {
     let num_of_records;
     
     if ((req.body.original_url).match(regex)) {
-        num_of_records = await ShortUrl.countDocuments({});
+        num_of_records = await ShortUrl.countDocuments({}).catch(err => {
+            console.log(err);
+        });
 
         short_url_id = num_of_records + 1;
         const shortUrl = new ShortUrl({
