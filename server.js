@@ -33,17 +33,11 @@ app.get('/', function(req, res) {
 
 app.post('/api/shorturl', async function(req, res) {
     var url_expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
-    var regex = new RegExp(url_expression);
-    let num_of_records;
+    var regex = new RegExp(url_expression);    
     
     if ((req.body.original_url).match(regex)) {
-        try {
-            num_of_records = await ShortUrl.countDocuments({})
-        } catch (err) {
-            console.error(err)
-        }
 
-        short_url_id = num_of_records + 1;
+        short_url_id = Date.now()
         const shortUrl = new ShortUrl({
             original_url: req.body.original_url,
             short_url: short_url_id
