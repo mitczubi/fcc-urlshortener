@@ -37,7 +37,7 @@ app.post('/api/shorturl', function(req, res) {
 
     console.log(req)
     
-    if ((req.body.url_input).match(regex)) {
+    if ((req.body.url).match(regex)) {
 
         ShortUrl.countDocuments({}).exec(function(err, count) {
             if (err) console.error(err);
@@ -45,7 +45,7 @@ app.post('/api/shorturl', function(req, res) {
 
             short_url_id = num_of_docs + 1
             const shortUrl = new ShortUrl({
-                original_url: req.body.url_input,
+                original_url: req.body.url,
                 short_url: short_url_id
             })
 
