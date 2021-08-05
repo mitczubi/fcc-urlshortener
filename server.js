@@ -37,7 +37,11 @@ app.post('/api/shorturl', async function(req, res) {
     let num_of_records;
     
     if ((req.body.original_url).match(regex)) {
-        num_of_records = await ShortUrl.countDocuments({})
+        try {
+            num_of_records = await ShortUrl.countDocuments({})
+        } catch (err) {
+            console.error(err)
+        }
 
         short_url_id = num_of_records + 1;
         const shortUrl = new ShortUrl({
@@ -58,9 +62,7 @@ app.post('/api/shorturl', async function(req, res) {
             error: "invalid url"
         })
     }
-  }.catch(err => {
-    console.log(err);
-  })
+  }
 )
 
 app.get('/api/shorturl/:short_url', function(req, res) {
