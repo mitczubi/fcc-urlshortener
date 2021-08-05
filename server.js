@@ -37,19 +37,24 @@ app.post('/api/shorturl', function(req, res) {
     
     if ((req.body.original_url).match(regex)) {
 
-        short_url_id = Date.now()
-        const shortUrl = new ShortUrl({
-            original_url: req.body.original_url,
-            short_url: short_url_id
-        })
+        ShortUrl.countDocuments({}).exec(function(err, count) {
+            if (err) console.error(err);
+            var num_of_docs = count;
 
-        shortUrl.save(function(err, data) {
-            if (err) return console.error(err);
-        });
+            short_url_id = num_of_docs + 1
+            const shortUrl = new ShortUrl({
+                original_url: req.body.original_url,
+                short_url: short_url_id
+            })
 
-        res.json({
-            original_url: req.body.original_url,
-            short_url: shortUrl.short_url
+            shortUrl.save(function(err, data) {
+                if (err) return console.error(err);
+            });
+
+            res.json({
+                original_url: req.body.original_url,
+                short_url: shortUrl.short_url
+            })
         })
     } else {
         res.json({
