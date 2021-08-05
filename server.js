@@ -31,7 +31,7 @@ app.get('/', function(req, res) {
     res.send("URL Shortener");
 })
 
-app.post('/api/shorturl', async function(req, res) {
+app.post('/api/shorturl', function(req, res) {
     var url_expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
     var regex = new RegExp(url_expression);    
     
