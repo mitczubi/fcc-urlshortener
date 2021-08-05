@@ -35,7 +35,7 @@ app.post('/api/shorturl', function(req, res) {
     var url_expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
     var regex = new RegExp(url_expression);
 
-    console.log(req.body)
+    console.log(req)
     
     if ((req.body.url_input).match(regex)) {
 
