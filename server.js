@@ -35,7 +35,7 @@ app.post('/api/shorturl', function(req, res) {
     var url_expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/gi;
     var regex = new RegExp(url_expression);    
     
-    if ((req.body.original_url).match(regex)) {
+    if ((req.body.url).match(regex)) {
 
         ShortUrl.countDocuments({}).exec(function(err, count) {
             if (err) console.error(err);
@@ -43,7 +43,7 @@ app.post('/api/shorturl', function(req, res) {
 
             short_url_id = num_of_docs + 1
             const shortUrl = new ShortUrl({
-                original_url: req.body.original_url,
+                original_url: req.body.url,
                 short_url: short_url_id
             })
 
@@ -52,7 +52,7 @@ app.post('/api/shorturl', function(req, res) {
             });
 
             res.json({
-                original_url: req.body.original_url,
+                original_url: req.body.url,
                 short_url: shortUrl.short_url
             })
         })
